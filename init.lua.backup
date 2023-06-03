@@ -1,0 +1,52 @@
+
+-- Packer Plugin
+local install_path = vim.fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
+  vim.fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
+  vim.cmd 'packadd packer.nvim'
+end
+
+-- Отображение клавишной комбинации jk в <esc> в режиме вставки
+vim.api.nvim_set_keymap('i', 'jk', '<esc>', {noremap = true})
+
+-- Установка плагинов с помощью packer.nvim
+require('packer').startup(function()
+  -- LSP
+  use 'neovim/nvim-lspconfig'
+
+  -- Тема
+  use 'navarasu/onedark.nvim'
+
+  -- Рабочая область
+  use 'preservim/nerdtree'
+
+  use {
+    'fatih/vim-go',
+    run = ':GoUpdateBinaries'
+  }
+
+end)
+
+local lspconfig = require('lspconfig')
+
+-- Настройка gopls
+lspconfig.gopls.setup{}
+
+-- themes: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'
+require('onedark').setup {
+  style = 'deep'
+}
+require('onedark').load()
+
+-- Клавиатурные комбинации для рабочей области
+vim.api.nvim_set_keymap('n', '<leader>n', ':NERDTreeFocus<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-n>', ':NERDTree<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-t>', ':NERDTreeToggle<CR>', {noremap = true})
+vim.api.nvim_set_keymap('n', '<C-f>', ':NERDTreeFind<CR>', {noremap = true})
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*.go',
+  callback = function()
+    vim.lsp.buf.code_action({ context = { only = { 'source.organizeImports' } }, apply = true })
+  end
+})

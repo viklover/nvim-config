@@ -1,0 +1,43 @@
+set number
+set encoding=utf-8
+set noswapfile
+set expandtab
+
+set smartindent
+
+inoremap jk <esc>
+
+call plug#begin('~/.vim/plugged')
+
+" lsp
+Plug 'neovim/nvim-lspconfig'
+
+" themes
+Plug 'navarasu/onedark.nvim'
+
+" lsp
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'udalov/kotlin-vim'
+
+" workspace
+Plug 'preservim/nerdtree'
+
+" Plug 'nvim-tree/nvim-web-devicons' " optional
+" Plug 'nvim-tree/nvim-tree.lua'
+
+call plug#end()
+
+" theme config
+let g:onedark_config = {
+    \ 'style': 'cool', 
+\}
+" variants: 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer', 'light'
+colorscheme onedark
+
+
+" workspace keyboard combinations
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
