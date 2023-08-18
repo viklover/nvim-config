@@ -35,7 +35,7 @@ autocmd('BufEnter', {
 
 -- 2 spaces for selected filetypes
 autocmd('FileType', {
-  pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml,htmljinja',
+  pattern = 'xml,html,xhtml,css,scss,javascript,lua,yaml,htmljinja,json,jsonc,typescriptreact',
   callback = function()
     vim.opt_local.shiftwidth = 2
     vim.opt_local.tabstop = 2
@@ -46,6 +46,8 @@ autocmd('FileType', {
 autocmd('BufWritePre', {
   pattern = { '*.go' },
   callback = function()
+    vim.opt_local.tabstop = 2
+    vim.opt_local.shiftwidth = 2
     vim.lsp.buf.format({ async = true })
 
     for _, client in pairs(vim.lsp.buf_get_clients()) do

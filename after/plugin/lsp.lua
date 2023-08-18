@@ -24,13 +24,12 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 lsp.set_preferences({
   suggest_lsp_servers = false,
   sign_icons = {
-    error = 'E',
-    warn = 'W',
-    hint = 'H',
-    info = 'I'
+    error = '✘',
+    warn = '▲',
+    hint = '⚑',
+    info = '»'
   }
 })
-
 vim.diagnostic.config({
   virtual_text = true,
 })

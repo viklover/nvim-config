@@ -1,7 +1,9 @@
 vim.cmd [[packadd packer.nvim]]
+-- vim.cmd [[packadd coc.nvim]]
 
 return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
+--  use 'neoclide/coc.nvim'
 
   use 'navarasu/onedark.nvim'
 
@@ -22,6 +24,7 @@ return require('packer').startup(function(use)
   use 'nvim-treesitter/nvim-treesitter-context'
 
   use('mbbill/undotree')
+
 
   use {
     'nvim-lualine/lualine.nvim',
